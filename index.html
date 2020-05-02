@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <title>GameGuidez</title>
 </head>
@@ -13,24 +14,33 @@
   <nav class="z-depth-0 grey lighten-4">
     <div class="nav-wrapper container">
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in">
+          <li class="logged-in" style="display:none">
             <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
           </li>
-          <li class="logged-in">
+          <li class="logged-in" style="display:none">
             <a href="#" class="grey-text" id="logout">Logout</a>
           </li>
-          <li class="logged-in">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
+          <li class="logged-in" style="display:none">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Add recipe</a>
           </li>
-          <li class="logged-out">
+          <li class="logged-out" style="display:none">
             <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
           </li>
-          <li class="logged-out">
+          <li class="logged-out" style="display:none">
             <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
           </li>
       </ul>
     </div>
   </nav>
+
+  <!-- <form id="upload-form">
+    <label class="upload-input" for="image">Upload image
+    <input class="file-input" type="file" id="image" required></label>
+    <button id="submitUpload">SUBMIT</button>
+</form>  -->
+
+
+
 
   <!-- SIGN UP MODAL -->
   <div id="modal-signup" class="modal">
@@ -44,6 +54,10 @@
         <div class="input-field">
           <input type="password" id="signup-password" required />
           <label for="signup-password">Choose password</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="signup-bio" required />
+          <label for="signup-bio">One line bio</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Sign up</button>
       </form>
@@ -79,16 +93,17 @@
   <!-- CREATE GUIDE MODAL -->
   <div id="modal-create" class="modal">
     <div class="modal-content">
-      <h4>Create Guide</h4><br />
+      <h4>Add recipe</h4><br />
       <form id="create-form">
         <div class="input-field">
           <input type="text" id="title" required>
-          <label for="title">Guide Title</label>
+          <label for="title"> Title</label>
         </div>
         <div class="input-field">
           <textarea id="content" class="materialize-textarea" required></textarea>
-          <label for="content">Guide Content</label>
+          <label for="content">Instructions</label>
         </div>
+        <input type="file" value="upload" id="fileButton" required/>
         <button class="btn yellow darken-2 z-depth-0">Create</button>
       </form>
     </div>
@@ -96,23 +111,8 @@
 
   <!-- GUIDE LIST -->
   <div class="container" style="margin-top: 40px;">
-    <ul class="collapsible z-depth-0 guides" style="border: none;">
-      <li>
-        <div class="collapsible-header grey lighten-4">Guide title</div>
-        <div class="collapsible-body white">Lorem ipsum dolor sit amet.</div>
-      </li>
-      <li>
-        <div class="collapsible-header grey lighten-4">Guide title</div>
-        <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
-      </li>
-      <li>
-        <div class="collapsible-header grey lighten-4">Guide title</div>
-        <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
-      </li>
-      <li>
-        <div class="collapsible-header grey lighten-4">Guide title</div>
-        <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
-      </li>
+    <ul class="collapsible z-depth-0 recipes" style="border: none;">
+     
     </ul>
   </div>
   
@@ -120,7 +120,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js"></script>
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
@@ -145,7 +145,6 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 
-  db.settings({ timestampsInSnapshots: true });
 </script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
