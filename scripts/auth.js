@@ -1,18 +1,140 @@
-//sgnup
-const signupForm = document.querySelector('#signup-form');
-signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+// listen for auth changes
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    //get data
+    db.collection("recipes").onSnapshot((snapshot) => {
+      setupRecipes(snapshot.docs);
+      setupUI(user);
+    });
+  } else {
+    setupUI();
+    setupRecipes([]);
+  }
+});
 
-    //get user info
-    const email = signupForm['signup-email'].value;
-    const password = signupForm['signup-password'].value;
+//upload img
+var fileButton = document.getElementById("fileButton");
 
-    //sign up user
-    auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        const modal = document.querySelector('#modal-signup');
-        M.Modal.getInstance(modal).close();
-        signupForm.reset();
+fileButton.addEventListener("change", (e) => {
+  var file = e.target.files[0];
+
+  var storageRef = firebase
+    .storage()
+    .ref("images/" + file.name)
+    .put(file);
+
+  storageRef.on(
+    "state_changed",
+    function (snapshot) {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log("Upload is paused");
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log("Upload is running");
+          break;
+      }
+    },
+    function (error) {
+      // Handle unsuccessful uploads
+    },
+    function () {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      storageRef.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        URL = downloadURL;
+        console.log("File available at", downloadURL);
+      });
+    }
+  );
+});
+
+// create new recipe
+function addComment() {
+  const text = document.getElementById("commentText");
+  db.collection("comments").add({
+    comment: text,
+  });
+  console.log(text);
+}
+const createForm = document.querySelector("#create-form");
+createForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  db.collection("recipes")
+    .add({
+      title: createForm["title"].value,
+      steps: createForm["content"].value,
+      url: URL,
     })
-})
+    .then(() => {
+      const modal = document.querySelector("#modal-create");
+      M.Modal.getInstance(modal).close();
+      createForm.reset();
+    })
+    .catch((err) => {
+      window.alert(err.message);
+    });
+});
 
-//logout 
+// // add comment
+// const commentForm = document.querySelector("#comment-form");
+const commentForm = document.getElementById("comment-form");
+commentForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  db.collection("comments").add({
+    comment: commentForm["commentText"].value,
+    uID: cred.user.uid,
+  });
+});
+
+//sgnup
+const signupForm = document.querySelector("#signup-form");
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  //get user info
+  const email = signupForm["signup-email"].value;
+  const password = signupForm["signup-password"].value;
+
+  //sign up user
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .then((cred) => {
+      return db.collection("users").doc(cred.user.uid).set({
+        bio: signupForm["signup-bio"].value,
+      });
+    })
+    .then(() => {
+      const modal = document.querySelector("#modal-signup");
+      M.Modal.getInstance(modal).close();
+      signupForm.reset();
+    });
+});
+
+//logout
+
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", (e) => {
+  e.preventDefault();
+  auth.signOut();
+});
+
+// login
+const loginForm = document.querySelector("#login-form");
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = loginForm["login-email"].value;
+  const password = loginForm["login-password"].value;
+
+  auth.signInWithEmailAndPassword(email, password).then((cred) => {
+    const modal = document.querySelector("#modal-login");
+    M.Modal.getInstance(modal).close();
+    loginForm.reset();
+  });
+});
