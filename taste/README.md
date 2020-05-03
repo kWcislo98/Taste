@@ -28,6 +28,6 @@ Taste is an application that allows you to share your recipes with people all ar
 * Login using google account
 
 
-(signUpForm.png)
-(loginForm.png)
-(addForm.png)
+![](signUpForm.png)
+![](loginForm.png)
+![](addForm.png)
