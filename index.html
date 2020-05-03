@@ -5,34 +5,51 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
   <title>GameGuidez</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FFE1C4">
 </head>
 <body class="grey lighten-3"">
 
+  
   <!-- NAVBAR -->
-  <nav class="z-depth-0 grey lighten-4">
-    <div class="nav-wrapper container">
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in" style="display:none">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
-          </li>
-          <li class="logged-in" style="display:none">
-            <a href="#" class="grey-text" id="logout">Logout</a>
-          </li>
-          <li class="logged-in" style="display:none">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Add recipe</a>
-          </li>
-          <li class="logged-out" style="display:none">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
-          </li>
-          <li class="logged-out" style="display:none">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><img src="logo.png" alt="logo" style="width: 50px; height: 50px; padding:0;"></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto ">
+        <li class="logged-in nav-item liItem" style="display:none">
+          <a  class="nav-link" href="#" data-toggle="modal" data-target="#modal-account">
+            Account
+          </a>          </li>
+        <li class="logged-in nav-item liItem" style="display:none">
+          <a class="nav-link" href="#" id="logout">
+            Logout
+          </a>
+        </li>
+        <li class="logged-in nav-item liItem" style="display:none">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-recipe">
+            Add recipe
+          </a>          </li>
+        <li class="logged-out nav-item liItem" style="display:none">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-login">
+            Login
+          </a>           </li>
+          <li class="logged-out nav-item liItem" style="display:none">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-signup">
+              Sign up
+            </a>
           </li>
       </ul>
     </div>
   </nav>
-
   <!-- <form id="upload-form">
     <label class="upload-input" for="image">Upload image
     <input class="file-input" type="file" id="image" required></label>
@@ -41,81 +58,130 @@
 
 
 
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-signup">
+  Sign up
+</button> -->
 
-  <!-- SIGN UP MODAL -->
-  <div id="modal-signup" class="modal">
+<!-- Modal -->
+<div class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="SignUp" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <h4>Sign up</h4><br />
-      <form id="signup-form">
-        <div class="input-field">
-          <input type="email" id="signup-email" required />
-          <label for="signup-email">Email address</label>
-        </div>
-        <div class="input-field">
-          <input type="password" id="signup-password" required />
-          <label for="signup-password">Choose password</label>
-        </div>
-        <div class="input-field">
-          <input type="text" id="signup-bio" required />
-          <label for="signup-bio">One line bio</label>
-        </div>
-        <button class="btn yellow darken-2 z-depth-0">Sign up</button>
-      </form>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="signup-form">
+          <div class="form-group">
+            <label for="signup-email">Email address</label>
+            <input type="email" class="form-control" id="signup-email" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" class="form-control" id="signup-password" placeholder="Password" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-bio">One line bio</label>
+            <input type="text" id="signup-bio" class="form-control" placeholder="Your bio" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+      </div>
     </div>
   </div>
+</div>
+
 
   <!-- LOGIN MODAL -->
-  <div id="modal-login" class="modal">
-    <div class="modal-content">
-      <h4>Login</h4><br />
-      <form id="login-form">
-        <div class="input-field">
-          <input type="email" id="login-email" required />
-          <label for="login-email">Email address</label>
+  <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="input-field">
-          <input type="password" id="login-password" required />
-          <label for="login-password">Your password</label>
+        <div class="modal-body">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email address</label>
+              <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" class="form-control" id="login-password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
         </div>
-        <button class="btn yellow darken-2 z-depth-0">Login</button>
-      </form>
+        <div class="modal-footer">
+          WILL BE ADDED LOGIN WITH GOOGLE
+        </div>
+      </div>
     </div>
-  </div>
+    </div>
 
   <!-- ACCOUNT MODAL -->
-  <div id="modal-account" class="modal">
-    <div class="modal-content center-align">
-      <h4>Account details</h4><br />
-      <div class="account-details"></div>
+<div class="modal fade" id="modal-account" tabindex="-1" role="dialog" aria-labelledby="acc" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Account details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="account-details"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
   <!-- CREATE GUIDE MODAL -->
-  <div id="modal-create" class="modal">
-    <div class="modal-content">
-      <h4>Add recipe</h4><br />
-      <form id="create-form">
-        <div class="input-field">
-          <input type="text" id="title" required>
-          <label for="title"> Title</label>
+  <div class="modal fade" id="modal-recipe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add recipe</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="input-field">
-          <textarea id="content" class="materialize-textarea" required></textarea>
-          <label for="content">Instructions</label>
+        <div class="modal-body">
+          <form id="create-form">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="title" aria-describedby="title" placeholder="Recipe's title">
+            </div>
+            <div class="form-group">
+              <label for="content">Instructions</label>
+              <input type="text" class="form-control" id="content" placeholder="Instructions" required>
+            </div>
+              <label for="fileButton">Picture</label>
+              <input type="file" id="fileButton" class="form-control"  required />
+              <button class="btn btn-primary">Create</button>
+          </form>
         </div>
-        <input type="file" value="upload" id="fileButton" required/>
-        <button class="btn yellow darken-2 z-depth-0">Create</button>
-      </form>
+      </div>
     </div>
   </div>
 
   <!-- GUIDE LIST -->
-  <div class="container" style="margin-top: 40px;">
-    <ul class="collapsible z-depth-0 recipes" style="border: none;">
-     
-    </ul>
-  </div>
   
+  <div class="container recipes" style="margin-top: 40px;">
+   
+  </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
@@ -147,8 +213,9 @@
 
 </script>
   <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
   <script src="scripts/auth.js"></script>
   <script src="scripts/index.js"></script>
+  <script src="scripts/app.js"></script>
 </body>
 </html>

@@ -12,3 +12,9 @@
   position: absolute;
   z-index: -1;
 } */
+
+.liItem {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 20px;
+}
