@@ -6,7 +6,7 @@ It is very simple in use.
 ---
 ## What you can do:
  * You can add recipes with images
- ![addForm](https://github.com/kWcislo98/kWcislo98.github.io/taste/addForm.png "Add")
+ ![addForm](addForm.png)
  * You can view others' recipes
  * You can install app and use it without browser
  * You can create your own account
