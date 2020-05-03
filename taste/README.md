@@ -2,10 +2,6 @@
 
 Taste is an application that allows you to share your recipes with people all around the world. It is very easy to use.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 
 ## Built With
 
@@ -32,4 +28,6 @@ These instructions will get you a copy of the project up and running on your loc
 * Login using google account
 
 
-
+(signUpForm.png)
+(loginForm.png)
+(addForm.png)
