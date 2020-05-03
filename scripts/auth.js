@@ -54,13 +54,13 @@ fileButton.addEventListener("change", (e) => {
 });
 
 // create new recipe
-function addComment() {
-  const text = document.getElementById("commentText");
-  db.collection("comments").add({
-    comment: text,
-  });
-  console.log(text);
-}
+// function addComment() {
+//   const text = document.getElementById("commentText");
+//   db.collection("comments").add({
+//     comment: text,
+//   });
+//   console.log(text);
+// }
 const createForm = document.querySelector("#create-form");
 createForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -72,8 +72,7 @@ createForm.addEventListener("submit", (e) => {
       url: URL,
     })
     .then(() => {
-      const modal = document.querySelector("#modal-create");
-      M.Modal.getInstance(modal).close();
+      $("#modal-recipe").modal("hide");
       createForm.reset();
     })
     .catch((err) => {
@@ -83,15 +82,15 @@ createForm.addEventListener("submit", (e) => {
 
 // // add comment
 // const commentForm = document.querySelector("#comment-form");
-const commentForm = document.getElementById("comment-form");
-commentForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+// const commentForm = document.getElementById("comment-form");
+// commentForm.addEventListener("submit", (e) => {
+//   e.preventDefault();
 
-  db.collection("comments").add({
-    comment: commentForm["commentText"].value,
-    uID: cred.user.uid,
-  });
-});
+//   db.collection("comments").add({
+//     comment: commentForm["commentText"].value,
+//     uID: cred.user.uid,
+//   });
+// });
 
 //sgnup
 const signupForm = document.querySelector("#signup-form");
@@ -111,8 +110,7 @@ signupForm.addEventListener("submit", (e) => {
       });
     })
     .then(() => {
-      const modal = document.querySelector("#modal-signup");
-      M.Modal.getInstance(modal).close();
+      $("#modal-signup").modal("hide");
       signupForm.reset();
     });
 });
@@ -133,8 +131,7 @@ loginForm.addEventListener("submit", (e) => {
   const password = loginForm["login-password"].value;
 
   auth.signInWithEmailAndPassword(email, password).then((cred) => {
-    const modal = document.querySelector("#modal-login");
-    M.Modal.getInstance(modal).close();
+    $("#modal-login").modal("hide");
     loginForm.reset();
   });
 });

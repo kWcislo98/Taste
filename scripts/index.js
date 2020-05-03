@@ -36,21 +36,25 @@ const setupRecipes = (data) => {
     let html = "";
     data.forEach((doc) => {
       const recipe = doc.data();
-      const rID = doc.id;
 
       const li = `
-      <li>
-        <div class="collapsible-header grey lighten-4">${recipe.title}</div>
-        <div class="collapsible-body white">${recipe.steps}
-        
-        <br> <img src="${recipe.url}" alt="photo" style="width:400px; height:400px;">
-        <br>
-         <form id="comment-form">
-           <input type="text" id="commentText" placeholder="Type your comment" required />
-           <button id="comment-button" type="button" onClick="addComment()">Add comment</button>
-          </form>
+      <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            ${recipe.title}
+          </button>
+        </h2>
+      </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+        ${recipe.steps}
         </div>
-      </li>
+        <div class="text-center">
+        <img src="${recipe.url}" class="img-fluid" alt="Responsive image">
+</div>
+      </div>
+    </div>
       `;
       html += li;
     });
@@ -62,10 +66,10 @@ const setupRecipes = (data) => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  var modals = document.querySelectorAll(".modal");
-  M.Modal.init(modals);
+// document.addEventListener("DOMContentLoaded", function () {
+//   var modals = document.querySelectorAll(".modal");
+//   M.Modal.init(modals);
 
-  var items = document.querySelectorAll(".collapsible");
-  M.Collapsible.init(items);
-});
+//   var items = document.querySelectorAll(".collapsible");
+//   M.Collapsible.init(items);
+// });
