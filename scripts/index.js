@@ -10,11 +10,25 @@ const setupUI = (user) => {
       .doc(user.uid)
       .get()
       .then((doc) => {
-        const html = `
-      <div> Logged in as ${user.email}</div>
-      <div> ${doc.data().bio} </div>
+        if (user.displayName) {
+          const html = `
+      <img src="${user.photoURL}" alt="pic" style="width: 40px; height:40px;">
+      <div> Logged in as: ${user.displayName}</div>
+      <div> Email: ${user.email}</div>
       `;
-        accountDetails.innerHTML = html;
+          accountDetails.innerHTML = html;
+        } else if (doc.data().bio) {
+          const html = `
+          <div> Email: ${user.email}</div>
+          <div> Bio: ${doc.data().bio}</div>
+          `;
+          accountDetails.innerHTML = html;
+        } else {
+          const html = `
+          <div> Logged in as ${user.email}</div>
+          `;
+          accountDetails.innerHTML = html;
+        }
       });
 
     //toggle UI elements
@@ -39,16 +53,18 @@ const setupRecipes = (data) => {
 
       const li = `
       <div class="card">
-      <div class="card-header" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            ${recipe.title}
-          </button>
-        </h2>
+      <div class="card-header" id="headingOne"> 
+            <p class="h2">${recipe.title}</p>
+          
       </div>
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
+        <div class="row-fluid">
+        <div class="span12 text-center">
         ${recipe.steps}
+        </div>
+    
+    </div>
         </div>
         <div class="text-center">
         <img src="${recipe.url}" class="img-fluid" alt="Responsive image">
@@ -62,7 +78,7 @@ const setupRecipes = (data) => {
     recipesList.innerHTML = html;
   } else {
     recipesList.innerHTML =
-      '<h5 class="center-align"> Login to view recipes </h5>';
+      '<h5 class="center"> Login to view users recipes </h5>';
   }
 };
 
