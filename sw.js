@@ -1,4 +1,4 @@
-const staticCacheName = "site-static";
+const staticCacheName = "site-static-v1";
 const assets = [
   "/",
   "index.html",
@@ -23,15 +23,27 @@ self.addEventListener("install", (e) => {
 });
 
 // activate event
+// deletes unused cache versions
 self.addEventListener("activate", (e) => {
   console.log("service worker activated");
+  e.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys
+          .filter((key) => key !== staticCacheName)
+          .map((key) => caches.delete(key))
+      );
+    })
+  );
 });
 
 //fetch
 self.addEventListener("fetch", (e) => {
-  e.respondWith(
-    caches.match(e.request).then((cacheRes) => {
-      return cacheRes || fetch(e.request);
-    })
-  );
+  if (e.request.url.indexOf("firestore.googleapis.com") === -1) {
+    e.respondWith(
+      caches.match(e.request).then((cacheRes) => {
+        return cacheRes || fetch(e.request);
+      })
+    );
+  }
 });

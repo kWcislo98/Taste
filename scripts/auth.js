@@ -1,3 +1,11 @@
+db.enablePersistence().catch((err) => {
+  if (err.code == "failed-precondition") {
+    console.log("presistence failed");
+  } else if ((err.code = -"unimplemented")) {
+    console.log("systtem is not available");
+  }
+});
+
 // listen for auth changes
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -11,6 +19,25 @@ auth.onAuthStateChanged((user) => {
     setupRecipes([]);
   }
 });
+//google sign in
+
+googleSignIn = () => {
+  base_provider = new firebase.auth.GoogleAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(base_provider)
+    .then(function (result) {
+      console.log(result);
+      console.log("Success");
+      console.log(result.user.email);
+    })
+    .then(() => {
+      $("#modal-login").modal("hide");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 //upload img
 var fileButton = document.getElementById("fileButton");
