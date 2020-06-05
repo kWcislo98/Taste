@@ -78,7 +78,7 @@ const setupRecipes = (data) => {
     recipesList.innerHTML = html;
   } else {
     recipesList.innerHTML =
-      '<h5 class="center"> You need to be both logged in and have internet connection to see other recipes </h5>';
+      '<h5 class="text-center"> You need to be both logged in and have internet connection to see other recipes </h5>';
   }
 };
 
