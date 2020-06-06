@@ -160,5 +160,7 @@ loginForm.addEventListener("submit", (e) => {
   auth.signInWithEmailAndPassword(email, password).then((cred) => {
     $("#modal-login").modal("hide");
     loginForm.reset();
+  }).catch((err)=>{
+    window.alert('Invalid username or password!');
   });
 });
