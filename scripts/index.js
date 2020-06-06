@@ -78,7 +78,12 @@ const setupRecipes = (data) => {
     recipesList.innerHTML = html;
   } else {
     recipesList.innerHTML =
-      '<h5 class="text-center"> You need to be both logged in and have internet connection to see other recipes </h5>';
+      `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Oops!</strong> You need to be both logged in and have internet connection to see other recipes.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`;
   }
 };
 
