@@ -101,6 +101,8 @@ createForm.addEventListener("submit", (e) => {
     .then(() => {
       $("#modal-recipe").modal("hide");
       createForm.reset();
+    }).then(()=>{
+      window.alert('Successfuly added recipe!')
     })
     .catch((err) => {
       window.alert(err.message);
